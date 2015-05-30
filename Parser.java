@@ -73,4 +73,36 @@ public class Parser
 		
 		return faces;
 	}
+
+	public float[] convert( String filename )
+	{
+		File f = new File( filename );
+		ArrayList<Face> faces;
+		try
+		{
+			faces = getFaces( f );
+		}
+		catch (IOException e)
+		{		
+			System.out.println("messed up file reading");
+		}	
+		catch (FileNotFoundException e)
+		{		
+			System.out.println("messed up file reading");
+		}	
+
+		int arraySize = faces.size()*3;
+		float[] a = new float[arraySize];
+
+		for (int i = 0; i < faces.size(); i ++)
+		{
+			for (int j = 0; j < 3; j ++)
+			{
+				a[i*9+j*3 ] = faces.get(i).points[j].xpos;		
+				a[i*9+j*3+1 ] = faces.get(i).points[j].ypos;		
+				a[i*9+j*3+2 ] = faces.get(i).points[j].zpos;		
+			}
+		}	
+
+	}	
 }
